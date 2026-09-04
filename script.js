@@ -1,5 +1,5 @@
 /* ============================================================
-   PCB — Process Control Block | Grupo 4 | Sistemas Operativos
+   PCB — Process Control Block | Grupo 3 | Sistemas Operativos
    script.js — menú responsive + lógica del quiz
    ============================================================ */
 
@@ -89,9 +89,11 @@ document.addEventListener("DOMContentLoaded", function () {
     if (pct === 1) {
       msg = "¡Excelente! Entendieron bien el rol y el funcionamiento del PCB.";
     } else if (pct >= 0.5) {
-      msg = "Vas bien encaminado. Repasá las explicaciones de arriba para afirmar los conceptos que fallaron.";
+      msg =
+        "Vas bien encaminado. Repasá las explicaciones de arriba para afirmar los conceptos que fallaron.";
     } else {
-      msg = "Convendría repasar la sección de Concepto y Funcionamiento antes de seguir.";
+      msg =
+        "Convendría repasar la sección de Concepto y Funcionamiento antes de seguir.";
     }
     if (scoreMsg) scoreMsg.textContent = msg;
     summary.classList.add("show");

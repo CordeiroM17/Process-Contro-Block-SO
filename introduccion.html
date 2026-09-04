@@ -1,134 +1,152 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
-<head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Introducción — PCB | Grupo 4</title>
-<meta name="description" content="Qué es un proceso en un sistema operativo y por qué hace falta el PCB." />
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=Space+Mono:wght@400;700&display=swap" />
-<link rel="stylesheet" href="style.css" />
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Introducción — PCB | Grupo 3</title>
+    <meta
+      name="description"
+      content="Qué es un proceso en un sistema operativo y por qué hace falta el PCB."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=Space+Mono:wght@400;700&display=swap"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="header-inner container">
+        <a href="index.html" class="brand">
+          <span class="brand-icon">⚙</span>
+          <span class="brand-text"
+            >PCB<span class="brand-sub">Process Control Block</span></span
+          >
+        </a>
+        <button
+          class="nav-toggle"
+          id="navToggle"
+          aria-label="Abrir menú"
+          aria-expanded="false"
+        >
+          <span></span><span></span><span></span>
+        </button>
+        <nav class="site-nav" id="siteNav">
+          <a href="index.html">Inicio</a>
+          <a href="introduccion.html" class="active">Introducción</a>
+          <a href="concepto.html">Concepto</a>
+          <a href="caracteristicas.html">Características</a>
+          <a href="funcionamiento.html">Funcionamiento</a>
+          <a href="ejemplo-practico.html">Ejemplo práctico</a>
+          <a href="aplicaciones.html">Aplicaciones</a>
+          <a href="cuanto-conocemos.html">Quiz</a>
+          <a href="fuentes.html">Fuentes</a>
+        </nav>
+      </div>
+    </header>
 
-<header class="site-header">
-  <div class="header-inner container">
-    <a href="index.html" class="brand">
-      <span class="brand-icon">⚙</span>
-      <span class="brand-text">PCB<span class="brand-sub">Process Control Block</span></span>
-    </a>
-    <button class="nav-toggle" id="navToggle" aria-label="Abrir menú" aria-expanded="false">
-      <span></span><span></span><span></span>
-    </button>
-    <nav class="site-nav" id="siteNav">
-      <a href="index.html">Inicio</a>
-      <a href="introduccion.html" class="active">Introducción</a>
-      <a href="concepto.html">Concepto</a>
-      <a href="caracteristicas.html">Características</a>
-      <a href="funcionamiento.html">Funcionamiento</a>
-      <a href="ejemplo-practico.html">Ejemplo práctico</a>
-      <a href="aplicaciones.html">Aplicaciones</a>
-      <a href="cuanto-conocemos.html">Quiz</a>
-      <a href="fuentes.html">Fuentes</a>
-    </nav>
-  </div>
-</header>
+    <main class="container">
+      <span class="eyebrow">01 · Introducción</span>
+      <h1>Un poco de contexto: ¿qué es un proceso?</h1>
+      <p class="lead">
+        Antes de hablar del PCB conviene tener claro qué entiende el sistema
+        operativo por "proceso", porque el PCB no es otra cosa que la forma en
+        que el SO representa a ese proceso internamente.
+      </p>
 
-<main class="container">
+      <h2>Programa vs. proceso</h2>
+      <p>
+        Un <strong>programa</strong> es un archivo pasivo: un conjunto de
+        instrucciones guardadas en disco (por ejemplo, un ejecutable). No hace
+        nada por sí solo. Cuando ese programa se ejecuta —se carga en memoria y
+        la CPU empieza a interpretar sus instrucciones— pasa a ser un
+        <strong>proceso</strong>: una entidad activa, con su propio espacio de
+        memoria, su propio estado y su propia "historia" mientras corre.
+      </p>
+      <p>
+        En otras palabras: el programa es la receta, y el proceso es la torta
+        que se está horneando en un momento dado, con un punto exacto del
+        procedimiento en el que se encuentra, ingredientes ya usados,
+        temperatura actual, etc. Esa analogía nos sirve para entender por qué
+        hace falta "anotar" el estado del proceso en algún lado: si dejamos de
+        hornear la torta a la mitad para atender otra cosa, necesitamos anotar
+        en qué paso íbamos para poder retomarla después sin arruinarla.
+      </p>
 
-  <span class="eyebrow">01 · Introducción</span>
-  <h1>Un poco de contexto: ¿qué es un proceso?</h1>
-  <p class="lead">
-    Antes de hablar del PCB conviene tener claro qué entiende el sistema
-    operativo por "proceso", porque el PCB no es otra cosa que la forma en
-    que el SO representa a ese proceso internamente.
-  </p>
+      <h2>
+        ¿Por qué el sistema operativo necesita "llevar cuenta" de cada proceso?
+      </h2>
+      <p>
+        Una computadora moderna ejecuta, en apariencia, muchos programas "al
+        mismo tiempo": el navegador, un editor de texto, procesos del sistema,
+        etc. En realidad, si la máquina tiene menos núcleos de CPU que procesos
+        en ejecución (lo más común), lo que hace el sistema operativo es
+        repartir el tiempo de CPU entre todos ellos, dándole a cada uno pequeñas
+        porciones de tiempo (quantum) de forma muy rápida, generando la ilusión
+        de simultaneidad. A esto se lo llama
+        <strong>multiprogramación</strong> o multitarea.
+      </p>
+      <p>
+        El problema es que, para poder pausar un proceso y retomar otro sin que
+        se "pierda" nada, el sistema operativo necesita guardar en algún lugar
+        absolutamente todo lo que hace falta para reconstruir el estado exacto
+        en el que ese proceso quedó: en qué instrucción iba, qué había en sus
+        registros de CPU, qué memoria tiene asignada, qué archivos tiene
+        abiertos, entre otras cosas. Sin esa información, sería imposible
+        "congelar" un proceso y devolverle el control a la CPU más tarde
+        exactamente donde lo había dejado.
+      </p>
 
-  <h2>Programa vs. proceso</h2>
-  <p>
-    Un <strong>programa</strong> es un archivo pasivo: un conjunto de
-    instrucciones guardadas en disco (por ejemplo, un ejecutable). No hace
-    nada por sí solo. Cuando ese programa se ejecuta —se carga en memoria y la
-    CPU empieza a interpretar sus instrucciones— pasa a ser un
-    <strong>proceso</strong>: una entidad activa, con su propio espacio de
-    memoria, su propio estado y su propia "historia" mientras corre.
-  </p>
-  <p>
-    En otras palabras: el programa es la receta, y el proceso es la torta que
-    se está horneando en un momento dado, con un punto exacto del
-    procedimiento en el que se encuentra, ingredientes ya usados, temperatura
-    actual, etc. Esa analogía nos sirve para entender por qué hace falta
-    "anotar" el estado del proceso en algún lado: si dejamos de hornear la
-    torta a la mitad para atender otra cosa, necesitamos anotar en qué paso
-    íbamos para poder retomarla después sin arruinarla.
-  </p>
+      <div class="box tip">
+        <h3>💡 Idea clave</h3>
+        <p style="margin-bottom: 0">
+          Cada vez que el sistema operativo decide sacar un proceso de la CPU
+          para darle lugar a otro (lo que se conoce como
+          <strong>cambio de contexto</strong> o <em>context switch</em>),
+          necesita un lugar donde guardar el "estado" de ese proceso. Esa
+          estructura de datos es, justamente, el <strong>PCB</strong>, que vamos
+          a definir en la próxima sección.
+        </p>
+      </div>
 
-  <h2>¿Por qué el sistema operativo necesita "llevar cuenta" de cada proceso?</h2>
-  <p>
-    Una computadora moderna ejecuta, en apariencia, muchos programas "al
-    mismo tiempo": el navegador, un editor de texto, procesos del sistema,
-    etc. En realidad, si la máquina tiene menos núcleos de CPU que procesos en
-    ejecución (lo más común), lo que hace el sistema operativo es repartir el
-    tiempo de CPU entre todos ellos, dándole a cada uno pequeñas porciones de
-    tiempo (quantum) de forma muy rápida, generando la ilusión de simultaneidad.
-    A esto se lo llama <strong>multiprogramación</strong> o multitarea.
-  </p>
-  <p>
-    El problema es que, para poder pausar un proceso y retomar otro sin que
-    se "pierda" nada, el sistema operativo necesita guardar en algún lugar
-    absolutamente todo lo que hace falta para reconstruir el estado exacto en
-    el que ese proceso quedó: en qué instrucción iba, qué había en sus
-    registros de CPU, qué memoria tiene asignada, qué archivos tiene
-    abiertos, entre otras cosas. Sin esa información, sería imposible
-    "congelar" un proceso y devolverle el control a la CPU más tarde
-    exactamente donde lo había dejado.
-  </p>
+      <h2>Un proceso necesita más que solo "código ejecutándose"</h2>
+      <p>
+        Además del código en sí, cada proceso tiene asociada mucha información
+        de contexto: quién lo creó, con qué prioridad debe ejecutarse respecto
+        de otros procesos, qué recursos (memoria, archivos, dispositivos) tiene
+        reservados, cuánto tiempo de CPU ya consumió, si está esperando algo
+        (como una operación de entrada/salida) o si está listo para seguir
+        corriendo. Toda esa información tiene que vivir en algún lado dentro del
+        sistema operativo, y ese "algún lado" es, precisamente, el tema de este
+        trabajo.
+      </p>
 
-  <div class="box tip">
-    <h3>💡 Idea clave</h3>
-    <p style="margin-bottom:0">
-      Cada vez que el sistema operativo decide sacar un proceso de la CPU
-      para darle lugar a otro (lo que se conoce como <strong>cambio de
-      contexto</strong> o <em>context switch</em>), necesita un lugar donde
-      guardar el "estado" de ese proceso. Esa estructura de datos es,
-      justamente, el <strong>PCB</strong>, que vamos a definir en la próxima
-      sección.
-    </p>
-  </div>
+      <div class="page-nav">
+        <a href="index.html">
+          <span class="dir">Anterior</span>
+          ← Inicio
+        </a>
+        <a href="concepto.html" class="next">
+          <span class="dir">Siguiente</span>
+          Concepto →
+        </a>
+      </div>
+    </main>
 
-  <h2>Un proceso necesita más que solo "código ejecutándose"</h2>
-  <p>
-    Además del código en sí, cada proceso tiene asociada mucha información de
-    contexto: quién lo creó, con qué prioridad debe ejecutarse respecto de
-    otros procesos, qué recursos (memoria, archivos, dispositivos) tiene
-    reservados, cuánto tiempo de CPU ya consumió, si está esperando algo
-    (como una operación de entrada/salida) o si está listo para seguir
-    corriendo. Toda esa información tiene que vivir en algún lado dentro del
-    sistema operativo, y ese "algún lado" es, precisamente, el tema de este
-    trabajo.
-  </p>
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <p>
+          <strong>Grupo 3</strong> — Sistemas Operativos, Universidad Católica
+          de Corrientes (UCP)
+        </p>
+        <p>Integrantes: Cordeiro Mariano, Giovanni Vanni, Blanco Facundo.</p>
+        <p class="footer-note">
+          Actividad de Evaluación 1 — Tema: PCB (Process Control Block)
+        </p>
+      </div>
+    </footer>
 
-  <div class="page-nav">
-    <a href="index.html">
-      <span class="dir">Anterior</span>
-      ← Inicio
-    </a>
-    <a href="concepto.html" class="next">
-      <span class="dir">Siguiente</span>
-      Concepto →
-    </a>
-  </div>
-
-</main>
-
-<footer class="site-footer">
-  <div class="container footer-inner">
-    <p><strong>Grupo 4</strong> — Sistemas Operativos, Universidad Católica de Corrientes (UCP)</p>
-    <p>Integrantes: Cordeiro Mariano, Giovanni Vanni, Blanco Facundo.</p>
-    <p class="footer-note">Actividad de Evaluación 1 — Tema: PCB (Process Control Block)</p>
-  </div>
-</footer>
-
-<script src="script.js"></script>
-</body>
+    <script src="script.js"></script>
+  </body>
 </html>

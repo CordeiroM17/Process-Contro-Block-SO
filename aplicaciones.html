@@ -1,156 +1,174 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
-<head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Aplicaciones prácticas — PCB | Grupo 4</title>
-<meta name="description" content="Por qué el PCB es indispensable para el multitasking, la planificación de CPU y el cambio de contexto." />
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=Space+Mono:wght@400;700&display=swap" />
-<link rel="stylesheet" href="style.css" />
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Aplicaciones prácticas — PCB | Grupo 3</title>
+    <meta
+      name="description"
+      content="Por qué el PCB es indispensable para el multitasking, la planificación de CPU y el cambio de contexto."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=Space+Mono:wght@400;700&display=swap"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="header-inner container">
+        <a href="index.html" class="brand">
+          <span class="brand-icon">⚙</span>
+          <span class="brand-text"
+            >PCB<span class="brand-sub">Process Control Block</span></span
+          >
+        </a>
+        <button
+          class="nav-toggle"
+          id="navToggle"
+          aria-label="Abrir menú"
+          aria-expanded="false"
+        >
+          <span></span><span></span><span></span>
+        </button>
+        <nav class="site-nav" id="siteNav">
+          <a href="index.html">Inicio</a>
+          <a href="introduccion.html">Introducción</a>
+          <a href="concepto.html">Concepto</a>
+          <a href="caracteristicas.html">Características</a>
+          <a href="funcionamiento.html">Funcionamiento</a>
+          <a href="ejemplo-practico.html">Ejemplo práctico</a>
+          <a href="aplicaciones.html" class="active">Aplicaciones</a>
+          <a href="cuanto-conocemos.html">Quiz</a>
+          <a href="fuentes.html">Fuentes</a>
+        </nav>
+      </div>
+    </header>
 
-<header class="site-header">
-  <div class="header-inner container">
-    <a href="index.html" class="brand">
-      <span class="brand-icon">⚙</span>
-      <span class="brand-text">PCB<span class="brand-sub">Process Control Block</span></span>
-    </a>
-    <button class="nav-toggle" id="navToggle" aria-label="Abrir menú" aria-expanded="false">
-      <span></span><span></span><span></span>
-    </button>
-    <nav class="site-nav" id="siteNav">
-      <a href="index.html">Inicio</a>
-      <a href="introduccion.html">Introducción</a>
-      <a href="concepto.html">Concepto</a>
-      <a href="caracteristicas.html">Características</a>
-      <a href="funcionamiento.html">Funcionamiento</a>
-      <a href="ejemplo-practico.html">Ejemplo práctico</a>
-      <a href="aplicaciones.html" class="active">Aplicaciones</a>
-      <a href="cuanto-conocemos.html">Quiz</a>
-      <a href="fuentes.html">Fuentes</a>
-    </nav>
-  </div>
-</header>
-
-<main class="container">
-
-  <span class="eyebrow">06 · Aplicaciones prácticas</span>
-  <h1>¿Por qué el PCB es tan importante en la práctica?</h1>
-  <p class="lead">
-    El PCB no es un detalle teórico de un libro: es la pieza que hace
-    posible, en la práctica, casi todo lo que esperamos de un sistema
-    operativo moderno. Veamos tres ejemplos concretos de por qué es
-    indispensable.
-  </p>
-
-  <h2>1. Multitarea (multitasking)</h2>
-  <p>
-    Cuando usamos una computadora "normal" —con un navegador, un
-    reproductor de música y un editor de texto abiertos a la vez— en
-    realidad la CPU (o cada uno de sus núcleos) sigue ejecutando un proceso
-    por vez, alternando entre ellos muy rápido. Esto solo es posible porque
-    el sistema operativo puede pausar cualquiera de esos procesos en
-    cualquier momento y retomarlo después sin que pierda su estado, y eso
-    depende directamente de que exista un PCB por cada proceso donde guardar
-    esa información. Sin PCB, cada cambio de proceso significaría perder
-    todo su progreso.
-  </p>
-
-  <h2>2. Planificación de CPU (scheduling)</h2>
-  <p>
-    El planificador del sistema operativo es el componente que decide, en
-    cada momento, cuál de todos los procesos listos merece la CPU a
-    continuación. Para tomar esa decisión necesita datos: la
-    <strong>prioridad</strong> de cada proceso, cuánto tiempo de CPU ya usó,
-    en qué cola está esperando, entre otros. Toda esa información sale,
-    justamente, de los campos de <em>planificación</em> y
-    <em>contabilidad</em> del PCB de cada proceso. Distintos algoritmos de
-    planificación (por prioridad, por turnos/round-robin, por tiempo
-    estimado más corto, etc.) usan esos mismos campos, solo que con
-    criterios distintos para ordenar la cola de listos.
-  </p>
-
-  <h2>3. Cambio de contexto (context switch)</h2>
-  <p>
-    Ya lo vimos en la sección de <a href="funcionamiento.html">Funcionamiento</a>:
-    el cambio de contexto —guardar el estado de un proceso y cargar el de
-    otro— es, en esencia, una operación de lectura y escritura sobre PCBs.
-    Cuanto más rápido y eficiente sea guardar/restaurar esa información,
-    menor es el "costo" (overhead) de cambiar de proceso, lo cual impacta
-    directamente en el rendimiento general del sistema.
-  </p>
-
-  <h2>¿Cómo se ve esto en sistemas operativos reales?</h2>
-  <p>
-    Sin entrar en detalles internos de implementación que exceden lo que
-    podemos verificar con certeza para este trabajo, podemos mencionar, a
-    modo de referencia general, que los sistemas operativos más usados
-    resuelven este mismo problema con estructuras equivalentes al PCB:
-  </p>
-  <div class="grid">
-    <div class="card">
-      <h3><span class="card-icon">🐧</span> Linux</h3>
-      <p>
-        El kernel de Linux mantiene, para cada proceso, una estructura de
-        control interna (asociada al concepto de <code>task_struct</code>)
-        que cumple el mismo rol conceptual que un PCB: guardar estado,
-        identificador, información de planificación, memoria y archivos
-        abiertos del proceso.
+    <main class="container">
+      <span class="eyebrow">06 · Aplicaciones prácticas</span>
+      <h1>¿Por qué el PCB es tan importante en la práctica?</h1>
+      <p class="lead">
+        El PCB no es un detalle teórico de un libro: es la pieza que hace
+        posible, en la práctica, casi todo lo que esperamos de un sistema
+        operativo moderno. Veamos tres ejemplos concretos de por qué es
+        indispensable.
       </p>
-    </div>
-    <div class="card">
-      <h3><span class="card-icon">🪟</span> Windows</h3>
+
+      <h2>1. Multitarea (multitasking)</h2>
       <p>
-        En Windows, el sistema operativo también mantiene, por cada proceso,
-        estructuras internas de control gestionadas por el kernel para
-        registrar su estado, prioridad, memoria asignada y recursos abiertos,
-        cumpliendo la misma función que describimos para el PCB genérico.
+        Cuando usamos una computadora "normal" —con un navegador, un reproductor
+        de música y un editor de texto abiertos a la vez— en realidad la CPU (o
+        cada uno de sus núcleos) sigue ejecutando un proceso por vez, alternando
+        entre ellos muy rápido. Esto solo es posible porque el sistema operativo
+        puede pausar cualquiera de esos procesos en cualquier momento y
+        retomarlo después sin que pierda su estado, y eso depende directamente
+        de que exista un PCB por cada proceso donde guardar esa información. Sin
+        PCB, cada cambio de proceso significaría perder todo su progreso.
       </p>
-    </div>
-  </div>
-  <p>
-    Más allá del nombre exacto o de los detalles internos de cada
-    implementación (que varían entre sistemas y versiones), la idea de
-    fondo es siempre la misma: <strong>ningún sistema operativo moderno
-    podría ofrecer multitarea real sin una estructura de control por
-    proceso equivalente al PCB</strong>.
-  </p>
 
-  <div class="box tip">
-    <h3>💡 En síntesis</h3>
-    <p style="margin-bottom:0">
-      El PCB es, en la práctica, el punto de apoyo que conecta tres pilares
-      del sistema operativo: la multitarea (poder alternar procesos), la
-      planificación (decidir a quién le toca) y el cambio de contexto
-      (ejecutar esa decisión sin perder información). Es una de esas piezas
-      "invisibles" para el usuario final, pero sin la cual nada de esto
-      sería posible.
-    </p>
-  </div>
+      <h2>2. Planificación de CPU (scheduling)</h2>
+      <p>
+        El planificador del sistema operativo es el componente que decide, en
+        cada momento, cuál de todos los procesos listos merece la CPU a
+        continuación. Para tomar esa decisión necesita datos: la
+        <strong>prioridad</strong> de cada proceso, cuánto tiempo de CPU ya usó,
+        en qué cola está esperando, entre otros. Toda esa información sale,
+        justamente, de los campos de <em>planificación</em> y
+        <em>contabilidad</em> del PCB de cada proceso. Distintos algoritmos de
+        planificación (por prioridad, por turnos/round-robin, por tiempo
+        estimado más corto, etc.) usan esos mismos campos, solo que con
+        criterios distintos para ordenar la cola de listos.
+      </p>
 
-  <div class="page-nav">
-    <a href="ejemplo-practico.html">
-      <span class="dir">Anterior</span>
-      ← Ejemplo práctico
-    </a>
-    <a href="cuanto-conocemos.html" class="next">
-      <span class="dir">Siguiente</span>
-      Quiz →
-    </a>
-  </div>
+      <h2>3. Cambio de contexto (context switch)</h2>
+      <p>
+        Ya lo vimos en la sección de
+        <a href="funcionamiento.html">Funcionamiento</a>: el cambio de contexto
+        —guardar el estado de un proceso y cargar el de otro— es, en esencia,
+        una operación de lectura y escritura sobre PCBs. Cuanto más rápido y
+        eficiente sea guardar/restaurar esa información, menor es el "costo"
+        (overhead) de cambiar de proceso, lo cual impacta directamente en el
+        rendimiento general del sistema.
+      </p>
 
-</main>
+      <h2>¿Cómo se ve esto en sistemas operativos reales?</h2>
+      <p>
+        Sin entrar en detalles internos de implementación que exceden lo que
+        podemos verificar con certeza para este trabajo, podemos mencionar, a
+        modo de referencia general, que los sistemas operativos más usados
+        resuelven este mismo problema con estructuras equivalentes al PCB:
+      </p>
+      <div class="grid">
+        <div class="card">
+          <h3><span class="card-icon">🐧</span> Linux</h3>
+          <p>
+            El kernel de Linux mantiene, para cada proceso, una estructura de
+            control interna (asociada al concepto de <code>task_struct</code>)
+            que cumple el mismo rol conceptual que un PCB: guardar estado,
+            identificador, información de planificación, memoria y archivos
+            abiertos del proceso.
+          </p>
+        </div>
+        <div class="card">
+          <h3><span class="card-icon">🪟</span> Windows</h3>
+          <p>
+            En Windows, el sistema operativo también mantiene, por cada proceso,
+            estructuras internas de control gestionadas por el kernel para
+            registrar su estado, prioridad, memoria asignada y recursos
+            abiertos, cumpliendo la misma función que describimos para el PCB
+            genérico.
+          </p>
+        </div>
+      </div>
+      <p>
+        Más allá del nombre exacto o de los detalles internos de cada
+        implementación (que varían entre sistemas y versiones), la idea de fondo
+        es siempre la misma:
+        <strong
+          >ningún sistema operativo moderno podría ofrecer multitarea real sin
+          una estructura de control por proceso equivalente al PCB</strong
+        >.
+      </p>
 
-<footer class="site-footer">
-  <div class="container footer-inner">
-    <p><strong>Grupo 4</strong> — Sistemas Operativos, Universidad Católica de Corrientes (UCP)</p>
-    <p>Integrantes: Cordeiro Mariano, Giovanni Vanni, Blanco Facundo.</p>
-    <p class="footer-note">Actividad de Evaluación 1 — Tema: PCB (Process Control Block)</p>
-  </div>
-</footer>
+      <div class="box tip">
+        <h3>💡 En síntesis</h3>
+        <p style="margin-bottom: 0">
+          El PCB es, en la práctica, el punto de apoyo que conecta tres pilares
+          del sistema operativo: la multitarea (poder alternar procesos), la
+          planificación (decidir a quién le toca) y el cambio de contexto
+          (ejecutar esa decisión sin perder información). Es una de esas piezas
+          "invisibles" para el usuario final, pero sin la cual nada de esto
+          sería posible.
+        </p>
+      </div>
 
-<script src="script.js"></script>
-</body>
+      <div class="page-nav">
+        <a href="ejemplo-practico.html">
+          <span class="dir">Anterior</span>
+          ← Ejemplo práctico
+        </a>
+        <a href="cuanto-conocemos.html" class="next">
+          <span class="dir">Siguiente</span>
+          Quiz →
+        </a>
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <p>
+          <strong>Grupo 3</strong> — Sistemas Operativos, Universidad Católica
+          de Corrientes (UCP)
+        </p>
+        <p>Integrantes: Cordeiro Mariano, Giovanni Vanni, Blanco Facundo.</p>
+        <p class="footer-note">
+          Actividad de Evaluación 1 — Tema: PCB (Process Control Block)
+        </p>
+      </div>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
 </html>

@@ -1,229 +1,247 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
-<head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Características — PCB | Grupo 4</title>
-<meta name="description" content="Campos típicos del PCB: PID, estado, PC, registros, planificación, memoria, E/S y contabilidad." />
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=Space+Mono:wght@400;700&display=swap" />
-<link rel="stylesheet" href="style.css" />
-</head>
-<body>
-
-<header class="site-header">
-  <div class="header-inner container">
-    <a href="index.html" class="brand">
-      <span class="brand-icon">⚙</span>
-      <span class="brand-text">PCB<span class="brand-sub">Process Control Block</span></span>
-    </a>
-    <button class="nav-toggle" id="navToggle" aria-label="Abrir menú" aria-expanded="false">
-      <span></span><span></span><span></span>
-    </button>
-    <nav class="site-nav" id="siteNav">
-      <a href="index.html">Inicio</a>
-      <a href="introduccion.html">Introducción</a>
-      <a href="concepto.html">Concepto</a>
-      <a href="caracteristicas.html" class="active">Características</a>
-      <a href="funcionamiento.html">Funcionamiento</a>
-      <a href="ejemplo-practico.html">Ejemplo práctico</a>
-      <a href="aplicaciones.html">Aplicaciones</a>
-      <a href="cuanto-conocemos.html">Quiz</a>
-      <a href="fuentes.html">Fuentes</a>
-    </nav>
-  </div>
-</header>
-
-<main class="container">
-
-  <span class="eyebrow">03 · Características</span>
-  <h1>¿Qué información guarda el PCB?</h1>
-  <p class="lead">
-    El PCB no es un solo dato, sino un conjunto de campos que, juntos,
-    describen por completo la situación de un proceso en un instante dado.
-    A continuación repasamos los campos más habituales, agrupados por tipo
-    de información.
-  </p>
-
-  <h2>Ficha del proceso</h2>
-  <p>
-    Antes de entrar en el detalle, así se vería (de forma simplificada) el
-    PCB de un proceso cualquiera, como si fuera una tarjeta de identidad:
-  </p>
-
-  <div class="pcb-card">
-    <div class="pcb-card-header">
-      <h3>PCB · Proceso #4127</h3>
-      <span class="tag">kernel space</span>
-    </div>
-    <div class="pcb-fields">
-      <div class="pcb-field">
-        <span class="k">PID</span>
-        <span class="v">4127</span>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Características — PCB | Grupo 3</title>
+    <meta
+      name="description"
+      content="Campos típicos del PCB: PID, estado, PC, registros, planificación, memoria, E/S y contabilidad."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=Space+Mono:wght@400;700&display=swap"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="header-inner container">
+        <a href="index.html" class="brand">
+          <span class="brand-icon">⚙</span>
+          <span class="brand-text"
+            >PCB<span class="brand-sub">Process Control Block</span></span
+          >
+        </a>
+        <button
+          class="nav-toggle"
+          id="navToggle"
+          aria-label="Abrir menú"
+          aria-expanded="false"
+        >
+          <span></span><span></span><span></span>
+        </button>
+        <nav class="site-nav" id="siteNav">
+          <a href="index.html">Inicio</a>
+          <a href="introduccion.html">Introducción</a>
+          <a href="concepto.html">Concepto</a>
+          <a href="caracteristicas.html" class="active">Características</a>
+          <a href="funcionamiento.html">Funcionamiento</a>
+          <a href="ejemplo-practico.html">Ejemplo práctico</a>
+          <a href="aplicaciones.html">Aplicaciones</a>
+          <a href="cuanto-conocemos.html">Quiz</a>
+          <a href="fuentes.html">Fuentes</a>
+        </nav>
       </div>
-      <div class="pcb-field state">
-        <span class="k">Estado</span>
-        <span class="v">LISTO</span>
-      </div>
-      <div class="pcb-field">
-        <span class="k">Contador de programa (PC)</span>
-        <span class="v">0x0040AF2C</span>
-      </div>
-      <div class="pcb-field">
-        <span class="k">Registros de CPU</span>
-        <span class="v">AX, BX, SP, FLAGS…</span>
-      </div>
-      <div class="pcb-field">
-        <span class="k">Prioridad</span>
-        <span class="v">7 (media)</span>
-      </div>
-      <div class="pcb-field">
-        <span class="k">Puntero a cola</span>
-        <span class="v">→ cola de listos</span>
-      </div>
-      <div class="pcb-field">
-        <span class="k">Límites de memoria</span>
-        <span class="v">base 0x2000 / límite 4 MB</span>
-      </div>
-      <div class="pcb-field">
-        <span class="k">Tabla de páginas</span>
-        <span class="v">→ dirección tabla #4127</span>
-      </div>
-      <div class="pcb-field">
-        <span class="k">Archivos abiertos</span>
-        <span class="v">stdin, stdout, datos.txt</span>
-      </div>
-      <div class="pcb-field">
-        <span class="k">Tiempo de CPU usado</span>
-        <span class="v">00:00:04.812</span>
-      </div>
-    </div>
-  </div>
+    </header>
 
-  <h2>Los campos, uno por uno</h2>
-  <div class="table-wrap">
-    <table>
-      <thead>
-        <tr>
-          <th class="field-name">Campo</th>
-          <th>Qué representa</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td class="field-name">PID (Process ID)</td>
-          <td>
-            Número que identifica de forma única al proceso mientras existe.
-            El sistema operativo lo usa como "clave" para encontrar su PCB
-            en la tabla de procesos, y los propios procesos lo usan para
-            referirse a sí mismos o a otros (por ejemplo, un proceso padre
-            que espera a que termine un proceso hijo identificado por su
-            PID).
-          </td>
-        </tr>
-        <tr>
-          <td class="field-name">Estado del proceso</td>
-          <td>
-            Indica en qué situación se encuentra el proceso en ese momento:
-            nuevo, listo (ready, esperando CPU), en ejecución (running),
-            bloqueado (waiting, esperando algún evento como una E/S) o
-            terminado. El planificador del sistema operativo usa este campo
-            para decidir a quién darle la CPU a continuación.
-          </td>
-        </tr>
-        <tr>
-          <td class="field-name">Contador de programa (PC)</td>
-          <td>
-            Guarda la dirección de memoria de la <em>próxima</em> instrucción
-            que ese proceso debe ejecutar. Es fundamental: si el proceso es
-            interrumpido, este valor permite retomar exactamente donde se
-            había quedado, en lugar de reiniciar desde el principio.
-          </td>
-        </tr>
-        <tr>
-          <td class="field-name">Registros de CPU</td>
-          <td>
-            Una copia del contenido de todos los registros del procesador
-            (acumuladores, punteros de pila, registros de propósito general,
-            registro de estado/flags, etc.) en el instante en que el proceso
-            dejó de ejecutarse. Sin esta copia sería imposible restaurar el
-            proceso tal cual estaba.
-          </td>
-        </tr>
-        <tr>
-          <td class="field-name">Información de planificación</td>
-          <td>
-            Incluye la <strong>prioridad</strong> del proceso (usada por el
-            planificador para decidir el orden de ejecución) y
-            <strong>punteros a colas</strong> del sistema, como la cola de
-            procesos listos o la cola de procesos bloqueados esperando un
-            recurso en particular.
-          </td>
-        </tr>
-        <tr>
-          <td class="field-name">Gestión de memoria</td>
-          <td>
-            Datos sobre qué región de memoria tiene asignada el proceso:
-            valores de <strong>límites</strong> (base y tamaño, en esquemas
-            simples de memoria) o, en sistemas con memoria virtual,
-            punteros a la <strong>tabla de páginas</strong> que traduce
-            direcciones virtuales del proceso a direcciones físicas de RAM.
-          </td>
-        </tr>
-        <tr>
-          <td class="field-name">Dispositivos de E/S / archivos abiertos</td>
-          <td>
-            Lista de los archivos y dispositivos que el proceso tiene
-            abiertos en ese momento (descriptores de archivo, sockets de
-            red, dispositivos), necesarios para que el proceso pueda seguir
-            operando sobre ellos después de ser reanudado.
-          </td>
-        </tr>
-        <tr>
-          <td class="field-name">Información de contabilidad</td>
-          <td>
-            Datos estadísticos y de control administrativo: tiempo de CPU
-            ya consumido, tiempo límite asignado, momento de creación,
-            usuario dueño del proceso, y otros contadores que el sistema
-            operativo usa para auditoría, planificación o para aplicar
-            límites de uso de recursos.
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+    <main class="container">
+      <span class="eyebrow">03 · Características</span>
+      <h1>¿Qué información guarda el PCB?</h1>
+      <p class="lead">
+        El PCB no es un solo dato, sino un conjunto de campos que, juntos,
+        describen por completo la situación de un proceso en un instante dado. A
+        continuación repasamos los campos más habituales, agrupados por tipo de
+        información.
+      </p>
 
-  <div class="box tip">
-    <h3>💡 Para recordar</h3>
-    <p style="margin-bottom:0">
-      No todos los sistemas operativos usan exactamente los mismos nombres de
-      campos ni los organizan igual, pero el concepto general —guardar todo
-      lo necesario para identificar, planificar y restaurar un proceso— se
-      mantiene en cualquier PCB real.
-    </p>
-  </div>
+      <h2>Ficha del proceso</h2>
+      <p>
+        Antes de entrar en el detalle, así se vería (de forma simplificada) el
+        PCB de un proceso cualquiera, como si fuera una tarjeta de identidad:
+      </p>
 
-  <div class="page-nav">
-    <a href="concepto.html">
-      <span class="dir">Anterior</span>
-      ← Concepto
-    </a>
-    <a href="funcionamiento.html" class="next">
-      <span class="dir">Siguiente</span>
-      Funcionamiento →
-    </a>
-  </div>
+      <div class="pcb-card">
+        <div class="pcb-card-header">
+          <h3>PCB · Proceso #4127</h3>
+          <span class="tag">kernel space</span>
+        </div>
+        <div class="pcb-fields">
+          <div class="pcb-field">
+            <span class="k">PID</span>
+            <span class="v">4127</span>
+          </div>
+          <div class="pcb-field state">
+            <span class="k">Estado</span>
+            <span class="v">LISTO</span>
+          </div>
+          <div class="pcb-field">
+            <span class="k">Contador de programa (PC)</span>
+            <span class="v">0x0040AF2C</span>
+          </div>
+          <div class="pcb-field">
+            <span class="k">Registros de CPU</span>
+            <span class="v">AX, BX, SP, FLAGS…</span>
+          </div>
+          <div class="pcb-field">
+            <span class="k">Prioridad</span>
+            <span class="v">7 (media)</span>
+          </div>
+          <div class="pcb-field">
+            <span class="k">Puntero a cola</span>
+            <span class="v">→ cola de listos</span>
+          </div>
+          <div class="pcb-field">
+            <span class="k">Límites de memoria</span>
+            <span class="v">base 0x2000 / límite 4 MB</span>
+          </div>
+          <div class="pcb-field">
+            <span class="k">Tabla de páginas</span>
+            <span class="v">→ dirección tabla #4127</span>
+          </div>
+          <div class="pcb-field">
+            <span class="k">Archivos abiertos</span>
+            <span class="v">stdin, stdout, datos.txt</span>
+          </div>
+          <div class="pcb-field">
+            <span class="k">Tiempo de CPU usado</span>
+            <span class="v">00:00:04.812</span>
+          </div>
+        </div>
+      </div>
 
-</main>
+      <h2>Los campos, uno por uno</h2>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th class="field-name">Campo</th>
+              <th>Qué representa</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="field-name">PID (Process ID)</td>
+              <td>
+                Número que identifica de forma única al proceso mientras existe.
+                El sistema operativo lo usa como "clave" para encontrar su PCB
+                en la tabla de procesos, y los propios procesos lo usan para
+                referirse a sí mismos o a otros (por ejemplo, un proceso padre
+                que espera a que termine un proceso hijo identificado por su
+                PID).
+              </td>
+            </tr>
+            <tr>
+              <td class="field-name">Estado del proceso</td>
+              <td>
+                Indica en qué situación se encuentra el proceso en ese momento:
+                nuevo, listo (ready, esperando CPU), en ejecución (running),
+                bloqueado (waiting, esperando algún evento como una E/S) o
+                terminado. El planificador del sistema operativo usa este campo
+                para decidir a quién darle la CPU a continuación.
+              </td>
+            </tr>
+            <tr>
+              <td class="field-name">Contador de programa (PC)</td>
+              <td>
+                Guarda la dirección de memoria de la
+                <em>próxima</em> instrucción que ese proceso debe ejecutar. Es
+                fundamental: si el proceso es interrumpido, este valor permite
+                retomar exactamente donde se había quedado, en lugar de
+                reiniciar desde el principio.
+              </td>
+            </tr>
+            <tr>
+              <td class="field-name">Registros de CPU</td>
+              <td>
+                Una copia del contenido de todos los registros del procesador
+                (acumuladores, punteros de pila, registros de propósito general,
+                registro de estado/flags, etc.) en el instante en que el proceso
+                dejó de ejecutarse. Sin esta copia sería imposible restaurar el
+                proceso tal cual estaba.
+              </td>
+            </tr>
+            <tr>
+              <td class="field-name">Información de planificación</td>
+              <td>
+                Incluye la <strong>prioridad</strong> del proceso (usada por el
+                planificador para decidir el orden de ejecución) y
+                <strong>punteros a colas</strong> del sistema, como la cola de
+                procesos listos o la cola de procesos bloqueados esperando un
+                recurso en particular.
+              </td>
+            </tr>
+            <tr>
+              <td class="field-name">Gestión de memoria</td>
+              <td>
+                Datos sobre qué región de memoria tiene asignada el proceso:
+                valores de <strong>límites</strong> (base y tamaño, en esquemas
+                simples de memoria) o, en sistemas con memoria virtual, punteros
+                a la <strong>tabla de páginas</strong> que traduce direcciones
+                virtuales del proceso a direcciones físicas de RAM.
+              </td>
+            </tr>
+            <tr>
+              <td class="field-name">
+                Dispositivos de E/S / archivos abiertos
+              </td>
+              <td>
+                Lista de los archivos y dispositivos que el proceso tiene
+                abiertos en ese momento (descriptores de archivo, sockets de
+                red, dispositivos), necesarios para que el proceso pueda seguir
+                operando sobre ellos después de ser reanudado.
+              </td>
+            </tr>
+            <tr>
+              <td class="field-name">Información de contabilidad</td>
+              <td>
+                Datos estadísticos y de control administrativo: tiempo de CPU ya
+                consumido, tiempo límite asignado, momento de creación, usuario
+                dueño del proceso, y otros contadores que el sistema operativo
+                usa para auditoría, planificación o para aplicar límites de uso
+                de recursos.
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
 
-<footer class="site-footer">
-  <div class="container footer-inner">
-    <p><strong>Grupo 4</strong> — Sistemas Operativos, Universidad Católica de Corrientes (UCP)</p>
-    <p>Integrantes: Cordeiro Mariano, Giovanni Vanni, Blanco Facundo.</p>
-    <p class="footer-note">Actividad de Evaluación 1 — Tema: PCB (Process Control Block)</p>
-  </div>
-</footer>
+      <div class="box tip">
+        <h3>💡 Para recordar</h3>
+        <p style="margin-bottom: 0">
+          No todos los sistemas operativos usan exactamente los mismos nombres
+          de campos ni los organizan igual, pero el concepto general —guardar
+          todo lo necesario para identificar, planificar y restaurar un proceso—
+          se mantiene en cualquier PCB real.
+        </p>
+      </div>
 
-<script src="script.js"></script>
-</body>
+      <div class="page-nav">
+        <a href="concepto.html">
+          <span class="dir">Anterior</span>
+          ← Concepto
+        </a>
+        <a href="funcionamiento.html" class="next">
+          <span class="dir">Siguiente</span>
+          Funcionamiento →
+        </a>
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <p>
+          <strong>Grupo 3</strong> — Sistemas Operativos, Universidad Católica
+          de Corrientes (UCP)
+        </p>
+        <p>Integrantes: Cordeiro Mariano, Giovanni Vanni, Blanco Facundo.</p>
+        <p class="footer-note">
+          Actividad de Evaluación 1 — Tema: PCB (Process Control Block)
+        </p>
+      </div>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
 </html>

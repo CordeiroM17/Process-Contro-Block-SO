@@ -1,4 +1,4 @@
-# Prompt para Claude Code — AE1 Sistemas Operativos, Grupo 4, Tema: PCB
+# Prompt para Claude Code — AE1 Sistemas Operativos, Grupo 3, Tema: PCB
 
 Copiá y pegá todo el bloque de abajo (entre las líneas ```) en tu consola de Claude Code, parado en una carpeta vacía (por ejemplo `~/AE1-PCB`).
 
@@ -8,7 +8,7 @@ pesados, para poder subirlo fácil a GitHub Pages o Netlify) que cumpla con la
 consigna de la Actividad de Evaluación 1 de la asignatura Sistemas Operativos
 (UCP, Corrientes). El tema asignado es "PCB (Process Control Block)".
 
-Grupo 4 — Integrantes: Cordeiro Mariano, Giovanni Vanni, Blanco Facundo.
+Grupo 3 — Integrantes: Cordeiro Mariano, Giovanni Vanni, Blanco Facundo.
 
 Estructura de archivos que quiero:
 - index.html (portada/inicio, con navegación a todas las secciones)
