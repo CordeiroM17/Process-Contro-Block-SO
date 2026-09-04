@@ -1,152 +1,162 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
-<head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Concepto — PCB | Grupo 4</title>
-<meta name="description" content="Qué es el PCB, quién lo crea y dónde vive en memoria." />
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=Space+Mono:wght@400;700&display=swap" />
-<link rel="stylesheet" href="style.css" />
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Concepto — PCB | Grupo 4</title>
+    <meta
+      name="description"
+      content="Qué es el PCB, quién lo crea y dónde vive en memoria."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=Space+Mono:wght@400;700&display=swap"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="header-inner container">
+        <a href="index.html" class="brand">
+          <span class="brand-icon">⚙</span>
+          <span class="brand-text"
+            >PCB<span class="brand-sub">Process Control Block</span></span
+          >
+        </a>
+        <button
+          class="nav-toggle"
+          id="navToggle"
+          aria-label="Abrir menú"
+          aria-expanded="false"
+        >
+          <span></span><span></span><span></span>
+        </button>
+        <nav class="site-nav" id="siteNav">
+          <a href="index.html">Inicio</a>
+          <a href="introduccion.html">Introducción</a>
+          <a href="concepto.html" class="active">Concepto</a>
+          <a href="caracteristicas.html">Características</a>
+          <a href="funcionamiento.html">Funcionamiento</a>
+          <a href="ejemplo-practico.html">Ejemplo práctico</a>
+          <a href="aplicaciones.html">Aplicaciones</a>
+          <a href="cuanto-conocemos.html">Quiz</a>
+          <a href="fuentes.html">Fuentes</a>
+        </nav>
+      </div>
+    </header>
 
-<header class="site-header">
-  <div class="header-inner container">
-    <a href="index.html" class="brand">
-      <span class="brand-icon">⚙</span>
-      <span class="brand-text">PCB<span class="brand-sub">Process Control Block</span></span>
-    </a>
-    <button class="nav-toggle" id="navToggle" aria-label="Abrir menú" aria-expanded="false">
-      <span></span><span></span><span></span>
-    </button>
-    <nav class="site-nav" id="siteNav">
-      <a href="index.html">Inicio</a>
-      <a href="introduccion.html">Introducción</a>
-      <a href="concepto.html" class="active">Concepto</a>
-      <a href="caracteristicas.html">Características</a>
-      <a href="funcionamiento.html">Funcionamiento</a>
-      <a href="ejemplo-practico.html">Ejemplo práctico</a>
-      <a href="aplicaciones.html">Aplicaciones</a>
-      <a href="cuanto-conocemos.html">Quiz</a>
-      <a href="fuentes.html">Fuentes</a>
-    </nav>
-  </div>
-</header>
+    <main class="container">
+      <span class="eyebrow">02 · Concepto</span>
+      <h1>¿Qué es exactamente el PCB?</h1>
+      <p class="lead">
+        El <strong>Process Control Block</strong> (Bloque de Control de Proceso,
+        a veces también llamado Descriptor de Proceso o Task Control Block) es
+        la estructura de datos que usa el sistema operativo para representar a
+        un proceso desde adentro del kernel.
+      </p>
 
-<main class="container">
+      <h2>Definición, en nuestras palabras</h2>
+      <p>
+        Podemos pensar al PCB como el
+        <strong
+          >"documento de identidad" que el sistema operativo le abre a cada
+          proceso</strong
+        >
+        en el momento en que nace, y que va actualizando durante toda su vida.
+        Es una estructura de datos (en la práctica, algo similar a un registro o
+        un "struct") que concentra toda la información necesaria para que el
+        sistema operativo pueda administrar, planificar y, si hace falta, pausar
+        y reanudar ese proceso en cualquier momento.
+      </p>
+      <p>
+        No hay un único PCB para todo el sistema:
+        <strong>cada proceso tiene el suyo propio</strong>. El conjunto de todos
+        los PCB activos suele organizarse en una estructura que el sistema
+        operativo mantiene para poder ubicarlos rápido, comúnmente llamada
+        <em>tabla de procesos</em>
+        (process table), donde cada entrada apunta (o contiene directamente) al
+        PCB de un proceso.
+      </p>
 
-  <span class="eyebrow">02 · Concepto</span>
-  <h1>¿Qué es exactamente el PCB?</h1>
-  <p class="lead">
-    El <strong>Process Control Block</strong> (Bloque de Control de Proceso,
-    a veces también llamado Descriptor de Proceso o Task Control Block) es
-    la estructura de datos que usa el sistema operativo para representar a
-    un proceso desde adentro del kernel.
-  </p>
+      <h2>¿Quién crea el PCB?</h2>
+      <p>
+        El PCB lo crea el propio
+        <strong>núcleo del sistema operativo (kernel)</strong>, específicamente
+        el subsistema encargado de la gestión de procesos. Esto ocurre en el
+        momento en que se solicita la creación de un nuevo proceso: por ejemplo,
+        cuando un usuario abre una aplicación, cuando un proceso ya en ejecución
+        crea un proceso hijo, o cuando el propio sistema operativo arranca sus
+        servicios internos.
+      </p>
+      <p>
+        En términos generales (sin entrar en la implementación puntual de un SO
+        específico), el flujo es más o menos así: el kernel recibe el pedido de
+        creación de proceso, reserva memoria para el nuevo proceso, le asigna un
+        identificador único, y construye su PCB completando los campos con los
+        valores iniciales correspondientes (estado "nuevo" o "listo", puntero de
+        programa apuntando al inicio del código, prioridad por defecto, etc.).
+        De ese PCB nadie más que el sistema operativo se encarga: el propio
+        proceso, ejecutándose en modo usuario, no puede leerlo ni modificarlo
+        directamente.
+      </p>
 
-  <h2>Definición, en nuestras palabras</h2>
-  <p>
-    Podemos pensar al PCB como el <strong>"documento de identidad" que el
-    sistema operativo le abre a cada proceso</strong> en el momento en que
-    nace, y que va actualizando durante toda su vida. Es una estructura de
-    datos (en la práctica, algo similar a un registro o un "struct") que
-    concentra toda la información necesaria para que el sistema operativo
-    pueda administrar, planificar y, si hace falta, pausar y reanudar ese
-    proceso en cualquier momento.
-  </p>
-  <p>
-    No hay un único PCB para todo el sistema: <strong>cada proceso tiene el
-    suyo propio</strong>. El conjunto de todos los PCB activos suele
-    organizarse en una estructura que el sistema operativo mantiene para
-    poder ubicarlos rápido, comúnmente llamada <em>tabla de procesos</em>
-    (process table), donde cada entrada apunta (o contiene directamente) al
-    PCB de un proceso.
-  </p>
+      <h2>¿Dónde vive el PCB en memoria?</h2>
+      <p>
+        El PCB se guarda en una zona de memoria reservada para el sistema
+        operativo, conocida habitualmente como
+        <strong>espacio de memoria del kernel</strong> (kernel space), que está
+        protegida y a la que los procesos de usuario no tienen acceso directo.
+        Esto es intencional: si cualquier proceso pudiera modificar libremente
+        su propio PCB (por ejemplo, subirse la prioridad a mano o mentir sobre
+        su estado), se rompería por completo la administración justa y segura de
+        los recursos del sistema.
+      </p>
+      <p>
+        A grandes rasgos, podemos imaginar la memoria del sistema dividida en
+        dos grandes zonas: una zona de <em>espacio de usuario</em>, donde corre
+        el código y los datos de las aplicaciones (incluido el proceso al que
+        pertenece cada PCB), y una zona de <em>espacio de kernel</em>, donde el
+        sistema operativo guarda sus propias estructuras de control, entre ellas
+        la tabla de procesos con todos los PCB activos. Solo el kernel,
+        corriendo en modo privilegiado, puede leer y escribir esa zona.
+      </p>
 
-  <h2>¿Quién crea el PCB?</h2>
-  <p>
-    El PCB lo crea el propio <strong>núcleo del sistema operativo
-    (kernel)</strong>, específicamente el subsistema encargado de la gestión
-    de procesos. Esto ocurre en el momento en que se solicita la creación de
-    un nuevo proceso: por ejemplo, cuando un usuario abre una aplicación,
-    cuando un proceso ya en ejecución crea un proceso hijo, o cuando el
-    propio sistema operativo arranca sus servicios internos.
-  </p>
-  <p>
-    En términos generales (sin entrar en la implementación puntual de un SO
-    específico), el flujo es más o menos así: el kernel recibe el pedido de
-    creación de proceso, reserva memoria para el nuevo proceso, le asigna un
-    identificador único, y construye su PCB completando los campos con los
-    valores iniciales correspondientes (estado "nuevo" o "listo", puntero de
-    programa apuntando al inicio del código, prioridad por defecto, etc.).
-    De ese PCB nadie más que el sistema operativo se encarga: el propio
-    proceso, ejecutándose en modo usuario, no puede leerlo ni modificarlo
-    directamente.
-  </p>
+      <div class="box tip">
+        <h3>💡 Para recordar</h3>
+        <p style="margin-bottom: 0">
+          El PCB no es un archivo que el usuario pueda abrir ni algo que "se
+          vea" en pantalla: es una estructura interna del sistema operativo,
+          invisible para las aplicaciones, que existe únicamente mientras el
+          proceso al que pertenece está vivo.
+        </p>
+      </div>
 
-  <h2>¿Dónde vive el PCB en memoria?</h2>
-  <p>
-    El PCB se guarda en una zona de memoria reservada para el sistema
-    operativo, conocida habitualmente como <strong>espacio de memoria del
-    kernel</strong> (kernel space), que está protegida y a la que los
-    procesos de usuario no tienen acceso directo. Esto es intencional: si
-    cualquier proceso pudiera modificar libremente su propio PCB (por
-    ejemplo, subirse la prioridad a mano o mentir sobre su estado), se
-    rompería por completo la administración justa y segura de los recursos
-    del sistema.
-  </p>
-  <p>
-    A grandes rasgos, podemos imaginar la memoria del sistema dividida en dos
-    grandes zonas: una zona de <em>espacio de usuario</em>, donde corre el
-    código y los datos de las aplicaciones (incluido el proceso al que
-    pertenece cada PCB), y una zona de <em>espacio de kernel</em>, donde el
-    sistema operativo guarda sus propias estructuras de control, entre ellas
-    la tabla de procesos con todos los PCB activos. Solo el kernel, corriendo
-    en modo privilegiado, puede leer y escribir esa zona.
-  </p>
+      <div class="page-nav">
+        <a href="introduccion.html">
+          <span class="dir">Anterior</span>
+          ← Introducción
+        </a>
+        <a href="caracteristicas.html" class="next">
+          <span class="dir">Siguiente</span>
+          Características →
+        </a>
+      </div>
+    </main>
 
-  <div class="box tip">
-    <h3>💡 Para recordar</h3>
-    <p style="margin-bottom:0">
-      El PCB no es un archivo que el usuario pueda abrir ni algo que "se vea"
-      en pantalla: es una estructura interna del sistema operativo, invisible
-      para las aplicaciones, que existe únicamente mientras el proceso al que
-      pertenece está vivo.
-    </p>
-  </div>
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <p>
+          <strong>Grupo 4</strong> — Sistemas Operativos, Universidad Católica
+          de Corrientes (UCP)
+        </p>
+        <p>Integrantes: Cordeiro Mariano, Giovanni Vanni, Blanco Facundo.</p>
+        <p class="footer-note">
+          Actividad de Evaluación 1 — Tema: PCB (Process Control Block)
+        </p>
+      </div>
+    </footer>
 
-  <h2>Un dato importante: PCB y PID no son lo mismo</h2>
-  <p>
-    Es común confundir el PCB con el PID (Process ID). El <strong>PID</strong>
-    es apenas uno de los datos que el PCB contiene: un número que identifica
-    de forma única al proceso mientras existe. El <strong>PCB</strong>, en
-    cambio, es toda la estructura completa que agrupa el PID junto con
-    muchísima más información (estado, registros, memoria, archivos
-    abiertos, etc.), como vamos a ver en la próxima sección.
-  </p>
-
-  <div class="page-nav">
-    <a href="introduccion.html">
-      <span class="dir">Anterior</span>
-      ← Introducción
-    </a>
-    <a href="caracteristicas.html" class="next">
-      <span class="dir">Siguiente</span>
-      Características →
-    </a>
-  </div>
-
-</main>
-
-<footer class="site-footer">
-  <div class="container footer-inner">
-    <p><strong>Grupo 4</strong> — Sistemas Operativos, Universidad Católica de Corrientes (UCP)</p>
-    <p>Integrantes: Cordeiro Mariano, Giovanni Vanni, Blanco Facundo.</p>
-    <p class="footer-note">Actividad de Evaluación 1 — Tema: PCB (Process Control Block)</p>
-  </div>
-</footer>
-
-<script src="script.js"></script>
-</body>
+    <script src="script.js"></script>
+  </body>
 </html>
