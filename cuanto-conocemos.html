@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>¿Cuánto conocemos? — PCB | Grupo 4</title>
+<meta name="description" content="Quiz interactivo de comprensión sobre el PCB (Process Control Block)." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=Space+Mono:wght@400;700&display=swap" />
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner container">
+    <a href="index.html" class="brand">
+      <span class="brand-icon">⚙</span>
+      <span class="brand-text">PCB<span class="brand-sub">Process Control Block</span></span>
+    </a>
+    <button class="nav-toggle" id="navToggle" aria-label="Abrir menú" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+    <nav class="site-nav" id="siteNav">
+      <a href="index.html">Inicio</a>
+      <a href="introduccion.html">Introducción</a>
+      <a href="concepto.html">Concepto</a>
+      <a href="caracteristicas.html">Características</a>
+      <a href="funcionamiento.html">Funcionamiento</a>
+      <a href="ejemplo-practico.html">Ejemplo práctico</a>
+      <a href="aplicaciones.html">Aplicaciones</a>
+      <a href="cuanto-conocemos.html" class="active">Quiz</a>
+      <a href="fuentes.html">Fuentes</a>
+    </nav>
+  </div>
+</header>
+
+<main class="container">
+
+  <span class="eyebrow">07 · Autoevaluación</span>
+  <h1>¿Cuánto conocemos de Sistemas Operativos?</h1>
+  <p class="lead">
+    Este mini-quiz no busca que memorices definiciones, sino que pienses
+    <em>qué pasaría si</em> algo del PCB fallara o <em>por qué</em> el
+    sistema operativo lo necesita. Elegí una opción en cada pregunta para
+    ver si acertaste y por qué.
+  </p>
+
+  <div id="quiz">
+
+    <div class="quiz-question">
+      <h3>1. Si el sistema operativo perdiera el PCB de un proceso justo mientras estaba bloqueado esperando una E/S, ¿qué pasaría?</h3>
+      <ul class="quiz-options">
+        <li><button class="quiz-option" data-correct="false">No pasaría nada, el proceso seguiría funcionando con normalidad.</button></li>
+        <li><button class="quiz-option" data-correct="true">El proceso no podría retomarse correctamente, porque se perdería su PC, sus registros y su estado guardado.</button></li>
+        <li><button class="quiz-option" data-correct="false">El proceso pasaría automáticamente a ser el de mayor prioridad del sistema.</button></li>
+        <li><button class="quiz-option" data-correct="false">El sistema lo reiniciaría desde el principio sin ningún inconveniente.</button></li>
+      </ul>
+      <p class="quiz-feedback"
+         data-correct-msg="El PCB es la única copia que tiene el sistema operativo del estado exacto del proceso (PC, registros, memoria, etc.). Si se pierde, no hay forma de reconstruir dónde estaba ese proceso, y su ejecución quedaría corrupta o directamente perdida."
+         data-incorrect-msg="El PCB es la única copia que tiene el sistema operativo del estado exacto del proceso (PC, registros, memoria, etc.). Si se pierde, no hay forma de reconstruir dónde estaba ese proceso: no seguiría 'con normalidad', no sube de prioridad solo, y 'reiniciar sin problema' ignora que se perdería todo el progreso previo."></p>
+    </div>
+
+    <div class="quiz-question">
+      <h3>2. ¿Por qué el PCB vive en el espacio de memoria del kernel y no en el espacio de memoria del propio proceso?</h3>
+      <ul class="quiz-options">
+        <li><button class="quiz-option" data-correct="false">Porque el espacio de kernel es simplemente el único lugar con espacio libre suficiente.</button></li>
+        <li><button class="quiz-option" data-correct="true">Para que ningún proceso pueda leer ni modificar directamente su propia información de control, lo cual rompería la seguridad y la administración justa del sistema.</button></li>
+        <li><button class="quiz-option" data-correct="false">Porque así lo exige obligatoriamente el hardware de cualquier procesador.</button></li>
+        <li><button class="quiz-option" data-correct="false">Porque el espacio de usuario no admite estructuras de datos complejas.</button></li>
+      </ul>
+      <p class="quiz-feedback"
+         data-correct-msg="Si un proceso pudiera editar su propio PCB, podría, por ejemplo, subirse la prioridad a mano, mentir sobre su estado o alterar sus límites de memoria, saltándose todo el control del sistema operativo. Por eso el PCB está protegido en espacio de kernel."
+         data-incorrect-msg="No es un tema de espacio libre ni una obligación 'de hardware': la razón de fondo es de seguridad y control. Si un proceso pudiera modificar su propio PCB, podría alterar su prioridad, su estado o sus límites de memoria sin control del sistema operativo."></p>
+    </div>
+
+    <div class="quiz-question">
+      <h3>3. Dos procesos, A y B, tienen la misma prioridad y el algoritmo de planificación favorece a quien menos tiempo de CPU acumuló. Si el campo "tiempo de CPU usado" del PCB de A no se actualizara correctamente, ¿qué podría pasar?</h3>
+      <ul class="quiz-options">
+        <li><button class="quiz-option" data-correct="false">Nada, ese campo no influye en absoluto en la planificación.</button></li>
+        <li><button class="quiz-option" data-correct="true">El planificador podría tomar una decisión injusta o incorrecta, por ejemplo dándole más CPU a A de la que realmente le corresponde.</button></li>
+        <li><button class="quiz-option" data-correct="false">El proceso A perdería automáticamente toda la memoria que tenía asignada.</button></li>
+        <li><button class="quiz-option" data-correct="false">El proceso A pasaría de inmediato al estado "terminado".</button></li>
+      </ul>
+      <p class="quiz-feedback"
+         data-correct-msg="Los campos de contabilidad del PCB (como el tiempo de CPU usado) son justamente los datos que muchos algoritmos de planificación usan para decidir a quién le toca correr. Si ese dato está mal, la decisión del planificador también estará mal."
+         data-incorrect-msg="Ese campo sí importa: varios algoritmos de planificación (como los que priorizan a quien menos CPU consumió) dependen directamente de él. Un dato de contabilidad incorrecto lleva a decisiones de planificación injustas, no afecta la memoria asignada ni termina el proceso."></p>
+    </div>
+
+    <div class="quiz-question">
+      <h3>4. ¿Cómo se relaciona el PCB con el cambio de contexto (context switch)?</h3>
+      <ul class="quiz-options">
+        <li><button class="quiz-option" data-correct="false">No tienen relación directa: son dos mecanismos completamente independientes.</button></li>
+        <li><button class="quiz-option" data-correct="true">El cambio de contexto consiste, básicamente, en guardar el estado de la CPU en el PCB del proceso saliente y cargar en la CPU los valores guardados en el PCB del proceso entrante.</button></li>
+        <li><button class="quiz-option" data-correct="false">El cambio de contexto reemplaza al PCB por una tabla de páginas.</button></li>
+        <li><button class="quiz-option" data-correct="false">El PCB solo interviene cuando el proceso termina, nunca durante un cambio de contexto.</button></li>
+      </ul>
+      <p class="quiz-feedback"
+         data-correct-msg="Exacto: 'cambiar de contexto' es, en el fondo, una operación de guardar y restaurar PCBs. Sin el PCB, el sistema operativo no tendría dónde guardar el estado del proceso saliente ni de dónde recuperar el del proceso entrante."
+         data-incorrect-msg="En realidad están directamente relacionados: el cambio de contexto es, en esencia, guardar el estado de la CPU en el PCB del proceso que sale y cargar el PCB del proceso que entra. No reemplaza al PCB ni se usa solo al terminar el proceso."></p>
+    </div>
+
+  </div>
+
+  <div id="quizSummary" class="quiz-summary">
+    <p>Resultado</p>
+    <p class="score" id="quizScore">0 / 0</p>
+    <p id="quizScoreMsg"></p>
+    <button class="btn" id="quizRestart">Volver a intentar</button>
+  </div>
+
+  <div class="page-nav">
+    <a href="aplicaciones.html">
+      <span class="dir">Anterior</span>
+      ← Aplicaciones
+    </a>
+    <a href="fuentes.html" class="next">
+      <span class="dir">Siguiente</span>
+      Fuentes →
+    </a>
+  </div>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <p><strong>Grupo 4</strong> — Sistemas Operativos, Universidad Católica de Corrientes (UCP)</p>
+    <p>Integrantes: Cordeiro Mariano, Giovanni Vanni, Blanco Facundo.</p>
+    <p class="footer-note">Actividad de Evaluación 1 — Tema: PCB (Process Control Block)</p>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>

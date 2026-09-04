@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Funcionamiento — PCB | Grupo 4</title>
+<meta name="description" content="Cómo se crea, actualiza y elimina el PCB durante el ciclo de vida de un proceso." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=Space+Mono:wght@400;700&display=swap" />
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner container">
+    <a href="index.html" class="brand">
+      <span class="brand-icon">⚙</span>
+      <span class="brand-text">PCB<span class="brand-sub">Process Control Block</span></span>
+    </a>
+    <button class="nav-toggle" id="navToggle" aria-label="Abrir menú" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+    <nav class="site-nav" id="siteNav">
+      <a href="index.html">Inicio</a>
+      <a href="introduccion.html">Introducción</a>
+      <a href="concepto.html">Concepto</a>
+      <a href="caracteristicas.html">Características</a>
+      <a href="funcionamiento.html" class="active">Funcionamiento</a>
+      <a href="ejemplo-practico.html">Ejemplo práctico</a>
+      <a href="aplicaciones.html">Aplicaciones</a>
+      <a href="cuanto-conocemos.html">Quiz</a>
+      <a href="fuentes.html">Fuentes</a>
+    </nav>
+  </div>
+</header>
+
+<main class="container">
+
+  <span class="eyebrow">04 · Funcionamiento</span>
+  <h1>El PCB a lo largo de la vida de un proceso</h1>
+  <p class="lead">
+    El PCB no es estático: nace con el proceso, se actualiza constantemente
+    mientras el proceso vive y desaparece cuando el proceso termina. Veamos
+    cada etapa.
+  </p>
+
+  <h2>1. Creación del PCB</h2>
+  <ol class="steps">
+    <li>
+      <strong>Se solicita crear un proceso</strong> (por ejemplo, el usuario
+      abre un programa, o un proceso existente pide crear un hijo).
+    </li>
+    <li>
+      El kernel <strong>reserva memoria</strong> para el nuevo proceso y le
+      asigna un <strong>PID</strong> único que no esté en uso.
+    </li>
+    <li>
+      El kernel <strong>construye el PCB</strong> del proceso y lo completa
+      con valores iniciales: estado "nuevo" (o directamente "listo"), PC
+      apuntando a la primera instrucción del programa, prioridad por
+      defecto (o heredada del proceso padre), memoria asignada, y una lista
+      vacía o heredada de archivos/dispositivos abiertos.
+    </li>
+    <li>
+      El nuevo PCB se agrega a la <strong>tabla de procesos</strong> del
+      sistema operativo y el proceso pasa a la <strong>cola de listos</strong>,
+      esperando su turno de CPU.
+    </li>
+  </ol>
+
+  <h2>2. Actualización durante el cambio de contexto</h2>
+  <p>
+    El <strong>cambio de contexto</strong> (context switch) es el mecanismo
+    por el cual el sistema operativo le quita la CPU a un proceso para
+    dársela a otro. Es aquí donde el PCB cumple su función más importante:
+  </p>
+  <ol class="steps">
+    <li>
+      El planificador (scheduler) decide que el proceso actualmente en
+      ejecución debe dejar la CPU (por ejemplo, se acabó su quantum de
+      tiempo, o el proceso pidió una operación de E/S y debe bloquearse).
+    </li>
+    <li>
+      El sistema operativo <strong>guarda el estado actual del hardware</strong>
+      (el valor del PC y de todos los registros de la CPU en ese instante)
+      <strong>dentro del PCB</strong> de ese proceso. También actualiza su
+      campo de estado (por ejemplo, de "en ejecución" a "bloqueado" o
+      "listo") y lo mueve a la cola correspondiente.
+    </li>
+    <li>
+      El sistema operativo elige, según el algoritmo de planificación, cuál
+      es el siguiente proceso que va a correr, y <strong>carga los
+      registros de la CPU con los valores guardados en el PCB de ese nuevo
+      proceso</strong> (incluido su PC), de modo que la CPU continúe
+      exactamente donde ese proceso se había quedado la última vez.
+    </li>
+    <li>
+      La CPU retoma la ejecución normalmente, sin que el proceso "note" que
+      estuvo pausado.
+    </li>
+  </ol>
+
+  <div class="box tip">
+    <h3>💡 "Congelar y restaurar" un proceso</h3>
+    <p style="margin-bottom:0">
+      Gracias a que el PCB guarda una copia fiel de todo lo que la CPU
+      necesita (PC + registros) más el resto del contexto (memoria, E/S,
+      planificación), el sistema operativo puede "congelar" un proceso en
+      cualquier instante y "descongelarlo" más tarde —incluso mucho
+      después— sin que el proceso pierda absolutamente nada de su progreso.
+      Desde el punto de vista del proceso, es como si nunca hubiera sido
+      interrumpido.
+    </p>
+  </div>
+
+  <h2>3. Actualización durante la ejecución normal</h2>
+  <p>
+    El PCB también se actualiza en otros momentos, no solo en los cambios de
+    contexto completos: cuando el proceso abre o cierra un archivo, cuando
+    cambia su prioridad (por ejemplo, por envejecimiento en la cola de
+    espera, para evitar inanición), cuando consume más tiempo de CPU (se
+    actualiza su contador de contabilidad), o cuando cambia de estado por
+    cualquier motivo (se bloquea esperando E/S, se desbloquea porque el
+    dispositivo respondió, etc.).
+  </p>
+
+  <h2>4. Finalización del proceso</h2>
+  <p>
+    Cuando el proceso termina (ya sea porque finalizó normalmente, porque
+    hubo un error, o porque fue cancelado), el sistema operativo:
+  </p>
+  <ol class="steps">
+    <li>Actualiza el estado del PCB a <strong>"terminado"</strong>.</li>
+    <li>
+      Libera los recursos que el proceso tenía asignados: memoria, archivos
+      abiertos, dispositivos, etc.
+    </li>
+    <li>
+      En muchos sistemas, el PCB (o parte de su información, como el
+      código de salida) se mantiene brevemente disponible para que el
+      proceso padre pueda consultarlo (por ejemplo, para saber si el hijo
+      terminó bien o con error).
+    </li>
+    <li>
+      Una vez que esa información ya no hace falta, el PCB se elimina
+      definitivamente de la tabla de procesos y su memoria queda libre para
+      ser reutilizada por un futuro proceso.
+    </li>
+  </ol>
+
+  <div class="page-nav">
+    <a href="caracteristicas.html">
+      <span class="dir">Anterior</span>
+      ← Características
+    </a>
+    <a href="ejemplo-practico.html" class="next">
+      <span class="dir">Siguiente</span>
+      Ejemplo práctico →
+    </a>
+  </div>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <p><strong>Grupo 4</strong> — Sistemas Operativos, Universidad Católica de Corrientes (UCP)</p>
+    <p>Integrantes: Cordeiro Mariano, Giovanni Vanni, Blanco Facundo.</p>
+    <p class="footer-note">Actividad de Evaluación 1 — Tema: PCB (Process Control Block)</p>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>

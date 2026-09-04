@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Ejemplo práctico — PCB | Grupo 4</title>
+<meta name="description" content="Ejemplo paso a paso de cómo cambia el PCB de un proceso entre En ejecución, Bloqueado y Listo." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=Space+Mono:wght@400;700&display=swap" />
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner container">
+    <a href="index.html" class="brand">
+      <span class="brand-icon">⚙</span>
+      <span class="brand-text">PCB<span class="brand-sub">Process Control Block</span></span>
+    </a>
+    <button class="nav-toggle" id="navToggle" aria-label="Abrir menú" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+    <nav class="site-nav" id="siteNav">
+      <a href="index.html">Inicio</a>
+      <a href="introduccion.html">Introducción</a>
+      <a href="concepto.html">Concepto</a>
+      <a href="caracteristicas.html">Características</a>
+      <a href="funcionamiento.html">Funcionamiento</a>
+      <a href="ejemplo-practico.html" class="active">Ejemplo práctico</a>
+      <a href="aplicaciones.html">Aplicaciones</a>
+      <a href="cuanto-conocemos.html">Quiz</a>
+      <a href="fuentes.html">Fuentes</a>
+    </nav>
+  </div>
+</header>
+
+<main class="container">
+
+  <span class="eyebrow">05 · Ejemplo práctico</span>
+  <h1>Siguiendo al proceso P3: de "En ejecución" a "Listo"</h1>
+  <p class="lead">
+    Para hacer más concreto todo lo anterior, armamos un ejemplo hipotético:
+    un proceso <strong>P3</strong> que está leyendo un archivo grande de
+    disco. En algún momento necesita esperar a que el disco le entregue los
+    datos, se bloquea, y luego vuelve a quedar listo para ejecutar. Veamos
+    cómo cambia su PCB en cada paso.
+  </p>
+
+  <div class="state-diagram">
+    <div class="state-node running">EN EJECUCIÓN</div>
+    <span class="state-arrow">→</span>
+    <div class="state-node blocked">BLOQUEADO<br />(esperando E/S)</div>
+    <span class="state-arrow">→</span>
+    <div class="state-node ready">LISTO</div>
+  </div>
+
+  <h2>Paso a paso</h2>
+  <ol class="steps">
+    <li>
+      <strong>P3 está en ejecución.</strong> La CPU está corriendo sus
+      instrucciones normalmente. Su PCB refleja ese estado y los registros
+      de CPU están "en uso real" por el hardware (el PCB tiene la última
+      copia guardada, pero mientras el proceso corre, los valores "vivos"
+      están en la CPU misma).
+    </li>
+    <li>
+      <strong>P3 pide leer del disco</strong> (una llamada al sistema de
+      entrada/salida). Como el disco es mucho más lento que la CPU, el
+      proceso no puede seguir avanzando hasta recibir esos datos.
+    </li>
+    <li>
+      El sistema operativo <strong>copia el PC y los registros actuales de
+      la CPU dentro del PCB de P3</strong>, cambia su campo de estado a
+      "bloqueado", y lo mueve de la CPU a la
+      <strong>cola de procesos bloqueados</strong> (esperando ese
+      dispositivo de E/S en particular). Automáticamente, el planificador le
+      da la CPU a otro proceso listo.
+    </li>
+    <li>
+      El disco termina de transferir los datos y genera una
+      <strong>interrupción de E/S</strong>. El sistema operativo la atiende,
+      identifica que era para P3, y actualiza su PCB: cambia el estado de
+      "bloqueado" a <strong>"listo"</strong> y lo mueve de la cola de
+      bloqueados a la <strong>cola de listos</strong>, donde espera su
+      próximo turno de CPU (el PC y los registros no cambian en este paso;
+      siguen siendo los que se guardaron cuando se bloqueó).
+    </li>
+    <li>
+      Más adelante, cuando el planificador lo elija de nuevo, el sistema
+      operativo hará un cambio de contexto: cargará en la CPU el PC y los
+      registros guardados en el PCB de P3, cambiará su estado a "en
+      ejecución" otra vez, y P3 continuará exactamente después de la
+      instrucción que pidió leer el disco, ahora con los datos disponibles.
+    </li>
+  </ol>
+
+  <h2>Cómo cambian los campos clave del PCB</h2>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th class="field-name">Campo del PCB</th>
+          <th>① En ejecución</th>
+          <th>② Bloqueado (esperando E/S)</th>
+          <th>③ Listo</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="field-name">PID</td>
+          <td>3</td>
+          <td>3</td>
+          <td>3</td>
+        </tr>
+        <tr>
+          <td class="field-name">Estado</td>
+          <td>EN EJECUCIÓN</td>
+          <td>BLOQUEADO</td>
+          <td>LISTO</td>
+        </tr>
+        <tr>
+          <td class="field-name">PC</td>
+          <td>0x00401A10 (avanzando)</td>
+          <td>0x00401A2C (instrucción siguiente a la lectura, guardado)</td>
+          <td>0x00401A2C (sin cambios, esperando CPU)</td>
+        </tr>
+        <tr>
+          <td class="field-name">Registros de CPU</td>
+          <td>"en vivo" en el hardware</td>
+          <td>copiados y guardados en el PCB</td>
+          <td>siguen guardados en el PCB, listos para recargarse</td>
+        </tr>
+        <tr>
+          <td class="field-name">Cola en la que está</td>
+          <td>ninguna (está usando la CPU)</td>
+          <td>cola de bloqueados del disco</td>
+          <td>cola de listos</td>
+        </tr>
+        <tr>
+          <td class="field-name">Prioridad</td>
+          <td>5</td>
+          <td>5 (puede subir un poco al desbloquearse, según el algoritmo)</td>
+          <td>5 o 6</td>
+        </tr>
+        <tr>
+          <td class="field-name">E/S pendiente</td>
+          <td>—</td>
+          <td>lectura de <code>datos.bin</code> en curso</td>
+          <td>lectura completada, datos disponibles</td>
+        </tr>
+        <tr>
+          <td class="field-name">Tiempo de CPU acumulado</td>
+          <td>00:00:02.150 (aumentando)</td>
+          <td>00:00:02.150 (se congela: no usa CPU mientras espera)</td>
+          <td>00:00:02.150 (sin cambios hasta volver a ejecutar)</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="box tip">
+    <h3>💡 Qué nos muestra este ejemplo</h3>
+    <p style="margin-bottom:0">
+      El campo que realmente "dispara" todo el proceso es el
+      <strong>estado</strong>: cada vez que cambia, el sistema operativo
+      reacciona moviendo al proceso de cola y, si corresponde, guardando o
+      restaurando el contexto de CPU. El resto de los campos del PCB actúan
+      como la "memoria" que permite que ese cambio de estado no implique
+      perder información.
+    </p>
+  </div>
+
+  <div class="page-nav">
+    <a href="funcionamiento.html">
+      <span class="dir">Anterior</span>
+      ← Funcionamiento
+    </a>
+    <a href="aplicaciones.html" class="next">
+      <span class="dir">Siguiente</span>
+      Aplicaciones →
+    </a>
+  </div>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <p><strong>Grupo 4</strong> — Sistemas Operativos, Universidad Católica de Corrientes (UCP)</p>
+    <p>Integrantes: Cordeiro Mariano, Giovanni Vanni, Blanco Facundo.</p>
+    <p class="footer-note">Actividad de Evaluación 1 — Tema: PCB (Process Control Block)</p>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
